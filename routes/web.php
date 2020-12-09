@@ -39,6 +39,10 @@ Route::group(['middleware' => ['checkLogin']], function () {
         Route::post('/bai-viet/binh-luan/sua/{id}', 'CommentController@getcomment')->name('comment.update');
 
 
+        //sửa bài viết
+        Route::post('/bai-viet/cap-nhat-get', 'ForumController@AjaxGetValue')->name('forum.AjaxGetValue');
+        Route::post('/bai-viet/cau-hoi/cap-nhat', 'ForumController@UpdatePost')->name('forum.update.submit');
+        
 
 
 
@@ -48,14 +52,17 @@ Route::group(['middleware' => ['checkLogin']], function () {
 
     });
     Route::group(['prefix' => 'chia-se'], function () {
+
         Route::get('/', 'ShareController@select')->name('share');
         Route::get('/bai-viet/{slug}', 'ShareController@show')->name('share.show');
         Route::get('/bai-viet/xoa/{id}', 'ShareController@destroy')->name('share.delete');
         Route::get('/them-bai-viet', 'ShareController@create')->name('share.create');
         Route::post('/them-bai-viet', 'ShareController@store')->name('share.store');
         Route::post('/bao-cao', 'ReportController@reportItem')->name('share.report');
+
         // tìm kiếm
         Route::get('/tim-kiem', 'ShareController@search')->name('share.search');
+
         //bình luận
         Route::post('/binh-luan', 'ShareController@comment')->name('share.comment.store');
         Route::post('/tra-loi-binh-luan', 'ShareController@repcomment')->name('share.comment.store.rep');
@@ -136,6 +143,12 @@ Route::group(['middleware' => ['checkLogin']], function () {
         //tham gia câu lạc bộ
         Route::get('/tham-gia/{slug}', 'ClubController@join')->name('club.join');
         Route::get('/danh-sach','ClubController@list' )->name('club.list');
+
+
+        
+        //sửa bài viết
+        Route::post('/bai-viet/cap-nhat-get', 'ClubController@AjaxGetValue')->name('club.AjaxGetValue');
+        Route::post('/bai-viet/cap-nhat', 'ClubController@UpdatePost')->name('club.update.submit');
     });
 
 
@@ -154,6 +167,11 @@ Route::group(['middleware' => ['checkLogin']], function () {
         //bình luận
         Route::post('/binh-luan', 'UnionController@comment')->name('union.comment.store');
         Route::post('/tra-loi-binh-luan', 'UnionController@commentrep')->name('union.comment.rep');
+
+
+        //sửa bài viết
+        Route::post('/bai-viet/cap-nhat-get', 'UnionController@AjaxGetValue')->name('union.AjaxGetValue');
+        Route::post('/bai-viet/cap-nhat', 'UnionController@UpdatePost')->name('union.update.submit');
 
     });
 

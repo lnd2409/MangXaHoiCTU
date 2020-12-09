@@ -63,6 +63,9 @@ Chi tiết bài viết
         left: 124px;
         text-align: center;
     }
+    .tox.tox-tinymce.tox-tinymce--toolbar-sticky-off {
+    height: 200px !important;
+}
 </style>
 @endpush
 @section('content')
@@ -83,10 +86,7 @@ Chi tiết bài viết
                             href="{{ route('Info',$post->stu_code.'.'.Str::slug($post->stu_name, '-')) }}">
                             {{$post->stu_name}}</a>
                         <div class="pull-right">
-                            <span><i class="fa fa-eye"></i> 184</span>
-                            <span> <i class="fa fa-thumbs-up" aria-hidden="true"></i>20</a></span>
-                            <span> <i class="fa fa-thumbs-down" aria-hidden="true"></i> 2</a></span>
-                            <span><i class="fa fa-comment"></i> 4</span>
+                            <a href="#" data-p_id=" {{$post->p_id}} " id="GetPostId" data-toggle="modal" data-target="#CapNhatPost" style="font-size:14px !important;"><i class="fa fa-edit"></i>   Sửa bài viêt</a>
                         </div>
                     </div>
                 </div>
@@ -314,11 +314,80 @@ Chi tiết bài viết
         </article>
         <div class="col-md-1"></div>
     </div>
-</div>
+</div>  
+  <!-- Modal -->
+  <div class="modal fade" id="CapNhatPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cập nhật bài viết</h5>
+          </button>
+        </div>
+        <form action="{{ route('forum.update.submit') }}" method="post">
+            @csrf
+            <div class="modal-body">    
+               <div class="content_form" style="width:490px">
+                    <div class="form-group">
+                      <label for="">Tiêu đề</label>
+                      <input type="text"
+                        class="form-control" name="ptitle" id="TieuDeP" >
+                      <input type="hidden"
+                        name="p_id" id="P_ID" >
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nội dung</label>
+                      <textarea name="pcontent" id="NoiDungP" class="tiny" ></textarea>
+                    </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 @endsection
 @section('scrpit')
 <script>
     $(document).ready(function () {
+
+
+        $('#GetPostId').click(function () { 
+            var p_id = $(this).attr('data-p_id');
+            // console.log(p_id);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                url: " {{route('forum.AjaxGetValue')}} ",
+                data: {p_id:p_id},
+                dataType: "json",
+                success: function (response) {
+                    // console.log(response);
+                    $('#TieuDeP').val(response.p_title);
+                    $('#P_ID').val(p_id);
+                    tinyMCE.activeEditor.setContent(response.p_content);
+
+                }
+            });
+
+        });
+
+
+
+
+
+
+
+
+
 
 
         //bình luận nè

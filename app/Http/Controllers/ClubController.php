@@ -315,9 +315,51 @@ class ClubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+
+
+
+
+    public function UpdatePost(Request $request)
     {
-        //
+        $data['cp_title'] = $request->cptitle;
+        $data['cp_content'] = $request->cpcontent;
+
+        if ($request->hasFile('cpavatar')) {
+            //lưu filed
+            // dd('co hinh');
+            $file=$request->file('cpavatar')->getClientOriginalName();
+            $type_file = \File::extension($file);
+            $request->file('cpavatar')->move(
+                public_path('/img/club_post/'), //nơi cần lưu
+                $file);
+            $data['cp_avatar'] ='img/club_post/'.$file;
+              // dd($request->cp11_id);
+            DB::table('club_posts')->where('cp_id',$request->cp11_id)->update($data);
+            return redirect()->back();   
+        }
+        else
+        {
+            // dd($request->cp11_id);
+            DB::table('club_posts')->where('cp_id',$request->cp11_id)->update($data);
+            return redirect()->back();
+        }
+      
+        
+    }
+
+
+
+
+
+
+    public function AjaxGetValue(Request $request)
+    {
+        if($request->ajax()){
+
+            $data = DB::table('club_posts')->where('cp_id',$request->cp_id)->first();
+            return response()->json($data, 200);
+        }
     }
 
     //bình luận

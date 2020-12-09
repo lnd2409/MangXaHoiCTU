@@ -166,9 +166,22 @@ class ForumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function UpdatePost(Request $request)
     {
-        //
+        $data['p_title'] = $request->ptitle;
+        $data['p_content'] = $request->pcontent;
+        
+        DB::table('posts')->where('p_id',$request->p_id)->update($data);
+        return redirect()->back();
+    }
+
+    public function AjaxGetValue(Request $request)
+    {
+        if($request->ajax()){
+
+            $data = DB::table('posts')->where('p_id',$request->p_id)->first();
+            return response()->json($data, 200);
+        }
     }
 
     /**

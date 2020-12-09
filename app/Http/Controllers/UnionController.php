@@ -101,12 +101,55 @@ class UnionController extends Controller
         return redirect()->route('union')->with('success','Đã thêm thành công');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
+
+
+    public function UpdatePost(Request $request)
+    {
+        $data['up_title'] = $request->uptitle;
+        $data['up_content'] = $request->upcontent;
+
+        // dd($request->up11_id);
+        if ($request->hasFile('upavatar')) {
+            //lưu filed
+            // dd('co hinh');
+            $file=$request->file('upavatar')->getClientOriginalName();
+            $type_file = \File::extension($file);
+            $request->file('cpavatar')->move(
+                public_path('/img/union_post/'), //nơi cần lưu
+                $file);
+            $data['cp_avatar'] ='img/club_post/'.$file;
+           // dd($request->cp11_id);
+           DB::table('union_posts')->where('up_id',$request->up11_id)->update($data);
+           return redirect()->back();
+        }
+        else
+        {
+            // dd($request->cp11_id);
+            DB::table('union_posts')->where('up_id',$request->up11_id)->update($data);
+            return redirect()->back();
+        }
+      
+        
+    }
+
+
+    public function AjaxGetValue(Request $request)
+    {
+        if($request->ajax()){
+
+            $data = DB::table('union_posts')->where('up_id',$request->up_id)->first();
+            return response()->json($data, 200);
+        }
+    }
+
+
+
+
+
+
+
+
     public function show($slug)
     {
         $post=DB::table('union_posts as p')

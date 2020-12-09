@@ -63,6 +63,9 @@ Chi tiết bài viết
         left: 124px;
         text-align: center;
     }
+    .tox.tox-tinymce.tox-tinymce--toolbar-sticky-off {
+    height: 200px !important;
+}
 </style>
 @endpush
 @section('content')
@@ -83,6 +86,7 @@ Chi tiết bài viết
                                 {{$post->stu_name}}</a></span>
                         <div class="pull-right">
                             <span><i class="fa fa-eye"></i> {{$post->cp_view_count}}</span>
+                            <a href="#" data-cp_id=" {{$post->cp_id}} " id="GetPostId" data-toggle="modal" data-target="#CapNhatPost" style="font-size:14px !important;"><i class="fa fa-edit"></i>   Sửa bài viêt</a>
                         </div>
                     </div>
                 </div>
@@ -374,11 +378,78 @@ Chi tiết bài viết
     </aside>
 </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="CapNhatPost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cập nhật bài viết</h5>
+          </button>
+        </div>
+        <form action="{{ route('club.update.submit') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="modal-body">    
+               <div class="content_form" style="width:490px">
+                    <div class="form-group">
+                      <label for="">Tiêu đề</label>
+                      <input type="text"
+                        class="form-control" name="cptitle" id="TieuDeCP" >
+                      <input type="hidden"
+                        name="cp11_id" id="CP1_ID" >
+                    </div>
+                    <div class="form-group">
+                      <label for="">Hình ảnh</label>
+                      <input type="file"
+                        class="form-control" name="cpavatar"  >
+                    
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nội dung</label>
+                      <textarea name="cpcontent" id="NoiDungCP" class="tiny" ></textarea>
+                    </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 @endsection
 @push('script')
 <script>
     $(document).ready(function () {
+
+
+        $('#GetPostId').click(function () { 
+            var cp_id = $(this).attr('data-cp_id');
+            console.log(cp_id);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                url: " {{route('club.AjaxGetValue')}} ",
+                data: {cp_id:cp_id},
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    $('#TieuDeCP').val(response.cp_title);
+                    $('#CP1_ID').val(cp_id);
+                    tinyMCE.activeEditor.setContent(response.cp_content);
+
+                }
+            });
+
+        });
+
+
 
 
         //bình luận nè
