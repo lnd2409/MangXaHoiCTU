@@ -79,9 +79,10 @@ class ShareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        $type=DB::table('types')->get();
+
+        $type=DB::table('types')->where('type_id',$id)->first();
         return view('client.pages.share.create',compact('type'));
     }
 
@@ -93,8 +94,11 @@ class ShareController extends Controller
      */
     public function store(Request $request)
     {
+        $slug=DB::table('types')->where('type_id',$request->type)->select('type_slug')->first();
+        $a = $slug->type_slug;
 
         $id=\DB::table('items')->max('item_id');
+
         $title=$this->sanitize($request->title);
         $slug=$title.'.'.$request->type.'&'.($id+1);
         if ($request->hasFile('avatar')) {
@@ -119,7 +123,7 @@ class ShareController extends Controller
             ]);
         }
 
-        return redirect()->route('share')->with('success','Đã thêm thành công');
+        return redirect()->route('share.type',['id' => $a])->with('success','Bài viết đang được kiểm duyệt');
     }
 
     /**

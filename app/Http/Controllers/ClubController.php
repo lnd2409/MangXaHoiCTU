@@ -349,8 +349,7 @@ class ClubController extends Controller
     }
 
 
-
-
+    
 
 
     public function AjaxGetValue(Request $request)
@@ -469,7 +468,19 @@ class ClubController extends Controller
                 ->join('clubs','clubs.c_id','club_students.c_id')
                 ->join('students','students.stu_id','club_students.stu_id')
                 ->where('cs_role','CNCLB')
-                ->get();
+                ->paginate(5);
+        // dd($list);
+        return view('client.pages.club.admin_list',compact('list'));
+    }
+
+    //Tìm kiếm
+    public function findClub(Request $request){
+        $list=DB::table('club_students')
+                ->join('clubs','clubs.c_id','club_students.c_id')
+                ->join('students','students.stu_id','club_students.stu_id')
+                ->where('cs_role','CNCLB')
+                ->where('c_name','LIKE','%'.$request->S_content.'%')
+                ->paginate(5);
         // dd($list);
         return view('client.pages.club.admin_list',compact('list'));
     }

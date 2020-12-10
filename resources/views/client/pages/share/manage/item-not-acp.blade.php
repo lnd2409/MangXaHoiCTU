@@ -55,6 +55,12 @@ Danh sách loại vật dụng
             <a href="{{ route('quan-tri.chia-se-do-dung') }}" class="btn btn-primary">
                 Quay lại
             </a>
+            <div class="" style="float: right">
+                <form action="{{ route('item.post.admin.find') }}" method="post" id="SendForm">
+                    @csrf
+                    <input type="text" class="form-control" id="Search" name="post_content" placeholder="Tìm kiếm từ khóa">
+                </form>
+            </div>
             <br><br>
 
 
@@ -71,7 +77,8 @@ Danh sách loại vật dụng
                 </thead>
                 <tbody>
                     <?php $stt = 1; ?>
-                    @foreach ($items as $item)
+                    @if (!empty($items))
+                        @foreach ($items as $item)
                         <tr >
                             <td style="line-height: 50px;">{{ $stt++ }}</td>
                             <td style="line-height: 50px;">{{ $item->item_title }}</td>
@@ -79,17 +86,22 @@ Danh sách loại vật dụng
                             <td style="line-height: 50px;">{{ Carbon\Carbon::parse($item->item_created)->format('d-m-Y') }}</td>
                             <td style="line-height: 50px;">
                                 <a href="{{ route('quan-tri.duyet-chia-se', ['action'=>'accept','idItem'=>$item->item_id]) }}" style="color: blue;">Duyệt</a> &nbsp;&nbsp;&nbsp;
+                                <a href="{{ route('quan-tri.duyet-chia-se', ['action'=>'detail','idItem'=>$item->item_id]) }}" style="color: green;">Chi tiết</a> &nbsp;&nbsp;&nbsp;
                                 <a href="{{ route('quan-tri.duyet-chia-se', ['action'=>'delete','idItem'=>$item->item_id]) }}" style="color: red;">Xóa</a>
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
+                    @else
+                    <tr>
+                        <td colspan="5" style="text-align: center; font-size:16px">Không có bài viết nào</td>
+                    </tr>
+                    @endif
+                  
                 </tbody>
             </table>
-
-
-
-
-
+        </div>
+        <div class="col-md-12" style="text-align: center">
+            {{$items->links()}}
         </div>
     </div>
 </div>

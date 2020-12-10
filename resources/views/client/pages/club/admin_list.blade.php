@@ -49,12 +49,20 @@ Danh sách câu lạc bộ
 <div class="container">
     <div class="row">
         <h4>Danh sách câu lạc bộ</h4>
+      
         <!-- Blog Column -->
         <div class="">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Thêm câu lạc bộ
             </button>
+            
+            <div class="" style="float: right">
+                <form action="{{ route('club.admin.find') }}" method="post" id="SendForm">
+                    @csrf
+                    <input type="text" class="form-control" id="Search" name="S_content" placeholder="Tìm kiếm từ khóa">
+                </form>
+            </div>
             <br><br>
 
             <!-- Modal -->
@@ -136,8 +144,9 @@ Danh sách câu lạc bộ
                 </tbody>
             </table>
 
-
-
+            <div class="col-md-12" style="text-align: center">
+                {{$list->links()}}
+            </div>
 
 
         </div>
@@ -148,6 +157,14 @@ Danh sách câu lạc bộ
 @push('script')
 <script>
     $(document).ready(function(){
+
+
+        $('#Search').mouseenter(function () { 
+            $('SendForm').submit();
+        });
+
+
+
 
 
         $("#CNCLB").keypress(function(e){

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Str;
+use Carbon;
 use App\Models\Item;
 class ShareItemController extends Controller
 {
@@ -16,10 +17,36 @@ class ShareItemController extends Controller
         return view('client.pages.share.manage.index', compact('typeItems','items'));
     }
 
+    //Tìm kiếm
+    public function findTypeItem(Request $request){
+        $typeItems = DB::table('types')
+        ->where('type_name','LIKE','%'.$request->I_content.'%')
+        ->get();
+        // dd($typeItems);
+        $items = DB::table('items')->where('item_status',0)->get()->count();
+        return view('client.pages.share.manage.index', compact('typeItems','items'));
+
+    }
+
+
+
     public function getItemsNotAcp()
     {
-        $items = DB::table('items')->where('item_status',0)->get();
+        $items = DB::table('items')->where('item_status',0)->paginate(5);
         // dd($items;
+        return view('client.pages.share.manage.item-not-acp', compact('items'));
+    }
+
+    //Tim kiem theo bai chua duyệt
+    public function findPostItem( Request $request)
+    {
+        $items = DB::table('items')->where('item_status',0)
+        ->where('item_name','LIKE','%'.$request->post_content.'%')
+        ->orWhere('item_title','LIKE','%'.$request->post_content.'%')
+        // ->orWhere('item_created','LIKE','%'.Carbon\Carbon::parse($request->post_content)->format('d-m-Y').'%')
+        // ->get();
+        ->paginate(5);
+        // dd($items);
         return view('client.pages.share.manage.item-not-acp', compact('items'));
     }
 
@@ -61,7 +88,7 @@ class ShareItemController extends Controller
         $share=Item::join('types as t','t.type_id','items.type_id')
         ->where('item_status',1)
         ->orderBy('item_id','DESC')
-        ->paginate(10);
+        ->paginate(5);
 
         foreach($share as $item){
 
@@ -70,6 +97,33 @@ class ShareItemController extends Controller
         // dd($share);
         return view('client.pages.share.manage.list-item', compact('share'));
     }
+
+
+    //Tìm kiếm
+    public function findPost(Request $request)
+    {
+       
+        $share=Item::join('types as t','t.type_id','items.type_id')
+        ->where('item_status',1)
+        ->where('item_name','LIKE','%'.$request->post_content.'%')
+        ->orWhere('item_title','LIKE','%'.$request->post_content.'%')
+        ->orderBy('item_id','DESC')
+        ->paginate(5);
+
+        foreach($share as $item){
+
+            $item->day=$this->getDay($item->item_id,$item->item_created);
+        }
+        // dd($share);
+        return view('client.pages.share.manage.list-item', compact('share'));
+    }
+
+
+
+
+
+
+
 
     public  function ItemStore(Request $request)
     {

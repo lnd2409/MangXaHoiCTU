@@ -56,7 +56,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
         Route::get('/', 'ShareController@select')->name('share');
         Route::get('/bai-viet/{slug}', 'ShareController@show')->name('share.show');
         Route::get('/bai-viet/xoa/{id}', 'ShareController@destroy')->name('share.delete');
-        Route::get('/them-bai-viet', 'ShareController@create')->name('share.create');
+        Route::get('/them-bai-viet/{id}', 'ShareController@create')->name('share.create');
         Route::post('/them-bai-viet', 'ShareController@store')->name('share.store');
         Route::post('/bao-cao', 'ReportController@reportItem')->name('share.report');
 
@@ -84,6 +84,10 @@ Route::group(['middleware' => ['checkLogin']], function () {
                 Route::post('/tao-cau-lac-bo', 'ClubController@adminCreate')->name('club.admin.create');
                 Route::post('/cap-nhat', 'ClubController@adminUpdate')->name('club.admin.adminUpdate');
                 Route::post('/xoa/{id}', 'ClubController@adminDelete')->name('club.admin.adminDelete');
+
+                //Tìm kiêm
+                Route::post('/tim-kiem', 'ClubController@findClub')->name('club.admin.find');
+
             });
             #Chia sẽ đồng dùng
             Route::group(['prefix' => 'chia-se-do-dung'], function () {
@@ -95,6 +99,15 @@ Route::group(['middleware' => ['checkLogin']], function () {
                 Route::get('/bai-viet/chua-duyet', 'QuanTri\ShareItemController@getItemsNotAcp')->name('quan-tri.do-dung-chua-duyet');
                 Route::get('/bai-viet/{action}/{idItem}', 'QuanTri\ShareItemController@actionItem')->name('quan-tri.duyet-chia-se');
                 Route::get('/bai-viet/danh-sach', 'QuanTri\ShareItemController@getAllItems')->name('quan-tri.danh-sach-chia-se');
+
+                //Tìm kiếm loại đồ dùng
+                Route::post('/tim-kiem', 'QuanTri\ShareItemController@findTypeItem')->name('item.type.admin.find');
+                //Tìm kiếm theo danh sách chưa duyệt
+                Route::post('/tim-kiem/duyet-bai', 'QuanTri\ShareItemController@findPostItem')->name('item.post.admin.find');
+                //Tìm kiếm theo danh sách
+                Route::post('/tim-kiem/danh-sach', 'QuanTri\ShareItemController@findPost')->name('item.admin.find');
+
+
             });
         });
 

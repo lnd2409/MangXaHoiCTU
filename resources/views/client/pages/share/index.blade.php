@@ -38,7 +38,7 @@ Chia sẻ
         <h1 class="page-header sidebar-title">
            {{$typeName->type_name}}
             <span style="float: right"><button class="btn btn-ctu"
-                    onclick="window.location.href='{{route('share.create')}}'"> Thêm vật dụng chia sẻ</button> </span>
+                    onclick="window.location.href='{{route('share.create',['id'=> $typeName->type_id])}}'"> Thêm vật dụng chia sẻ</button> </span>
             <marquee scrolldelay="1" scrollamount="5">
                 <span class="gioithiu">
                     Mời các bạn cùng nhau chia sẻ những vật dụng cá nhân: Tài liệu, bàn ghế, sách vở...

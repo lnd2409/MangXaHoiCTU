@@ -24,11 +24,8 @@
                 <tr>
                     <td>Chọn loại tin</td>
                     <td>
-                        <select name="type" id="" class="form-control">
-                            @foreach ($type as $item)
-                            <option value="{{$item->type_id}}">{{$item->type_name}}</option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" class="form-control" name="type" value="{{$type->type_id}}">
+                        <input type="text" class="form-control"  value="{{$type->type_name}}">
                     </td>
                 </tr>
                 <tr>

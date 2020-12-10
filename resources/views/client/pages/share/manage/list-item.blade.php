@@ -55,6 +55,12 @@ Danh sách loại vật dụng
             <a href="{{ route('quan-tri.chia-se-do-dung') }}" class="btn btn-primary">
                 Quay lại
             </a>
+            <div class="" style="float: right">
+                <form action="{{ route('item.admin.find') }}" method="post" id="SendForm">
+                    @csrf
+                    <input type="text" class="form-control" id="Search" name="post_content" placeholder="Tìm kiếm từ khóa">
+                </form>
+            </div>
             <br><br>
 
 
@@ -88,7 +94,9 @@ Danh sách loại vật dụng
                 </tbody>
             </table>
 
-
+            <div class="col-md-12" style="text-align: center">
+                {{$share->links()}}
+            </div>
 
 
 
