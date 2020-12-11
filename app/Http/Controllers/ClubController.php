@@ -25,7 +25,7 @@ class ClubController extends Controller
         ->where('club_students.cs_role','!=','YC')
         ->where('club_students.stu_id',\Auth::id())
         // ->groupBy('club_posts.cp_id')
-        ->orderBy('club_posts.cp_id')
+        ->orderBy('club_posts.cp_id','desc')
         ->paginate(3);
         // ->get();
 
@@ -336,7 +336,7 @@ class ClubController extends Controller
             $data['cp_avatar'] ='img/club_post/'.$file;
               // dd($request->cp11_id);
             DB::table('club_posts')->where('cp_id',$request->cp11_id)->update($data);
-            return redirect()->back();   
+            return redirect()->back();
         }
         else
         {
@@ -344,12 +344,12 @@ class ClubController extends Controller
             DB::table('club_posts')->where('cp_id',$request->cp11_id)->update($data);
             return redirect()->back();
         }
-      
-        
+
+
     }
 
 
-    
+
 
 
     public function AjaxGetValue(Request $request)
