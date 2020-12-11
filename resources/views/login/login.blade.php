@@ -133,17 +133,7 @@
                                 <span class="checkmark"></span>
                                 <p class="remember">Ghi nhớ đăng nhập</p>
                             </label>
-                            <br>
-                            <label for="">B1600001 - ctu : Phụng - SV, CHT Thạc Tân</label>
-                            <br>
-                            <label for="">B1600231- ctu : Khánh - SV, HV Thạc Tân</label>
-                            <br>
-                            <label for="">B1600003  - ctu : Nghĩa - SV</label>
-                            <br>
-                            <label for="">B1600022 - ctu : Nguyên - Admin CLB</label>
-                            <br>
-                            <label for="">admin1 - admin : Đức - Admin hệ thống</label>
-                            <br>
+                           
                            
                             <button class="btn theme-button">Đăng nhập</button>
                         </div>

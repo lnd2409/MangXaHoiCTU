@@ -47,8 +47,10 @@ class UnionController extends Controller
             $blog=\DB::table('union_posts')
             ->join('students','students.stu_id','union_posts.stu_id')
             ->where('ub_id',$union[0]->ub_id)
-            ->paginate(10);
+            ->orderBy('up_id','DESC')
+            ->paginate(5);
             $now=$this->now();
+            // dd($blog);
 
             foreach($blog as $item)
             $item->ngaydang=$this->getDay($item->up_id,$item->up_created);

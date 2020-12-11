@@ -76,7 +76,9 @@ Chi Hội
             @endforelse
             @if ($blog!=[])
 
-            {!!$blog->links()!!}
+                <div class="col-md-12" style="text-align: center">
+                    {!!$blog->links()!!}
+                </div>
             @endif
         </div>
         <hr>

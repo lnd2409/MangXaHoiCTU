@@ -75,6 +75,9 @@ Chi tiết bài viết
     {{-- {{dd($post)}} --}}
     <div class="row">
         <article class="col-md-8 ben-trai">
+            <a href="{{url()->previous()}}" class="btn btn-primary" style="color: white;">
+                Quay lại
+            </a>
             <h1 class="page-header sidebar-title">{{ $post->cp_title}}</h1>
             {{-- <img src="{{asset('client/images/unsplash1.jpg')}}" class="img-responsive" alt="photo" /> --}}
             {{-- <hr> --}}

@@ -383,7 +383,7 @@ class students extends Seeder
                 'yb_id'=>25
             ],
             [
-                'username'=>'B'.'1600032',
+                'username'=>'B'.'160032',
                 'password'=>\Hash::make('ctu'),
                 'stu_name'=> 'Lê Công Vinh',
                 'stu_avatar'=>'/img/avatar.jpg',

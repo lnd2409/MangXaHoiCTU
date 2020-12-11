@@ -75,6 +75,9 @@ Chi tiết bài viết
     <div class="row">
         <div class="col-md-1"></div>
         <article class="col-md-10 o-giua">
+            <a href="{{url()->previous()}}" class="btn btn-primary" style="color: white; margin:5px;">
+                Quay lại
+            </a>
             <h1 class="page-header sidebar-title">{{$post->p_title}}</h1>
             {{-- <img src="{{asset('client/images/unsplash1.jpg')}}" class="img-responsive" alt="photo" /> --}}
             {{-- <hr> --}}

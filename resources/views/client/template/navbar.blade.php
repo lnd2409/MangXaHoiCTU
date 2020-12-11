@@ -48,7 +48,7 @@
         <li @if (Request::segment(2)=='cau-lac-bo' ) class='active' @endif>
             <a href="{{route('club.admin')}}">Câu lạc bộ</a></li>
             <li @if (Request::segment(2)=='chia-se-do-dung' ) class='active' @endif>
-                <a href="{{ route('quan-tri.chia-se-do-dung') }}">Chia sẽ đồ dùng</a>
+                <a href="{{ route('quan-tri.chia-se-do-dung') }}">Chia sẻ đồ dùng</a>
             </li>
             <li >
                 <a href="{{ route('logout') }}" style="color: red;">Đăng xuất</a>

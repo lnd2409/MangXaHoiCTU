@@ -89,7 +89,7 @@ Chia sẻ
             @foreach ($lastedPost as $item)
             <div class="media">
                 <a class="pull-left" href="#">
-                    <img class="img-responsive media-object" src="{{asset('client/images/blog-photo1.jpg')}}"
+                    <img class="img-responsive media-object" src="{{asset($item->item_avatar)}}"
                         alt="Media Object">
                 </a>
                 <div class="media-body">

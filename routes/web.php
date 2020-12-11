@@ -89,6 +89,12 @@ Route::group(['middleware' => ['checkLogin']], function () {
                 Route::post('/tim-kiem', 'ClubController@findClub')->name('club.admin.find');
 
             });
+
+          
+
+
+
+
             #Chia sẽ đồng dùng
             Route::group(['prefix' => 'chia-se-do-dung'], function () {
                 Route::get('/danh-sach', 'QuanTri\ShareItemController@getItems')->name('quan-tri.chia-se-do-dung');

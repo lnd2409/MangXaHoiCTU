@@ -26,7 +26,7 @@ class ClubController extends Controller
         ->where('club_students.stu_id',\Auth::id())
         // ->groupBy('club_posts.cp_id')
         ->orderBy('club_posts.cp_id','desc')
-        ->paginate(3);
+        ->paginate(5);
         // ->get();
 
 
