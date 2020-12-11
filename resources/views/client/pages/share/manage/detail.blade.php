@@ -113,7 +113,7 @@ Chi tiết bài viết
     <div class="col-md-1"></div>
     <article class="col-md-10 o-giua">
         {{-- <hr> --}}
-        <a href="{{ route('quan-tri.danh-sach-chia-se') }}  " class="btn btn-primary">
+        <a href="{{url()->previous()}}" class="btn btn-primary">
             Quay lại
         </a>
         <div class="row">

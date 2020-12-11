@@ -42,7 +42,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
         //sửa bài viết
         Route::post('/bai-viet/cap-nhat-get', 'ForumController@AjaxGetValue')->name('forum.AjaxGetValue');
         Route::post('/bai-viet/cau-hoi/cap-nhat', 'ForumController@UpdatePost')->name('forum.update.submit');
-        
+
 
 
 
@@ -96,7 +96,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
                 Route::post('/danh-sach/get', 'QuanTri\ShareItemController@getAjax')->name('quan-tri.chia-se-do-dung.ajax');
                 Route::post('/danh-sach/update', 'QuanTri\ShareItemController@itemUpdate')->name('quan-tri.chia-se-do-dung.update');
                 Route::get('/danh-sach/delete/{id}', 'QuanTri\ShareItemController@itemDelete')->name('quan-tri.chia-se-do-dung.delete');
-                Route::get('/bai-viet/chua-duyet', 'QuanTri\ShareItemController@getItemsNotAcp')->name('quan-tri.do-dung-chua-duyet');
+                Route::get('/bai-viet/chua-duyet/{sort}', 'QuanTri\ShareItemController@getItemsNotAcp')->name('quan-tri.do-dung-chua-duyet');
                 Route::get('/bai-viet/{action}/{idItem}', 'QuanTri\ShareItemController@actionItem')->name('quan-tri.duyet-chia-se');
                 Route::get('/bai-viet/danh-sach', 'QuanTri\ShareItemController@getAllItems')->name('quan-tri.danh-sach-chia-se');
 
@@ -158,7 +158,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
         Route::get('/danh-sach','ClubController@list' )->name('club.list');
 
 
-        
+
         //sửa bài viết
         Route::post('/bai-viet/cap-nhat-get', 'ClubController@AjaxGetValue')->name('club.AjaxGetValue');
         Route::post('/bai-viet/cap-nhat', 'ClubController@UpdatePost')->name('club.update.submit');

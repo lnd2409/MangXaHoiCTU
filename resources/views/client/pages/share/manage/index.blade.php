@@ -55,7 +55,7 @@ Danh sách loại vật dụng
             <a href="#" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#exampleModal">
                 Thêm loại vật dụng
             </a>
-            <a href="{{ route('quan-tri.do-dung-chua-duyet') }}" class="btn btn-primary" style="margin-left: 10px;">
+            <a href="{{ route('quan-tri.do-dung-chua-duyet',['sort' => 0]) }}" class="btn btn-primary" style="margin-left: 10px;">
                 Bài viết chưa duyệt ({{ $items }})
             </a>
             <a href="{{ route('quan-tri.danh-sach-chia-se') }}" class="btn btn-primary" style="margin-left: 10px;">

@@ -71,7 +71,26 @@ Danh sách loại vật dụng
                         <th>STT</th>
                         <th>Tiêu đề</th>
                         <th>Người đăng</th>
-                        <th>Ngày đăng</th>
+                        <th>
+                            <?php
+                                if ($sort == 0) {
+                                    # code...
+                                    $route = route('quan-tri.do-dung-chua-duyet', ['sort'=> 1]);
+                                }
+                                else if($sort == 1) {
+                                    # code...
+                                    $route = route('quan-tri.do-dung-chua-duyet', ['sort'=> 2]);
+                                }
+                                else {
+                                    # code...
+                                    $route = route('quan-tri.do-dung-chua-duyet', ['sort'=> 0]);
+                                }
+
+                            ?>
+                            <a href="{{ $route }}" style="color: white;">
+                                Ngày đăng <i class="fa fa-sort" aria-hidden ></i>
+                            </a>
+                        </th>
                         <th>Tác vụ</th>
                     </tr>
                 </thead>
@@ -96,7 +115,7 @@ Danh sách loại vật dụng
                         <td colspan="5" style="text-align: center; font-size:16px">Không có bài viết nào</td>
                     </tr>
                     @endif
-                  
+
                 </tbody>
             </table>
         </div>

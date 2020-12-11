@@ -30,11 +30,33 @@ class ShareItemController extends Controller
 
 
 
-    public function getItemsNotAcp()
+    public function getItemsNotAcp($sort)
     {
-        $items = DB::table('items')->where('item_status',0)->paginate(5);
-        // dd($items;
-        return view('client.pages.share.manage.item-not-acp', compact('items'));
+        switch ($sort) {
+            case '1':
+                # code...
+                $items = DB::table('items')
+                        ->where('item_status',0)
+                        ->orderBy('item_created','DESC')
+                        ->paginate(5);
+                break;
+            case '2':
+                # code...
+                $items = DB::table('items')
+                        ->where('item_status',0)
+                        ->orderBy('item_created','ASC')
+                        ->paginate(5);
+                break;
+            default:
+                # code...
+                $items = DB::table('items')
+                        ->where('item_status',0)
+                        // ->orderBy('item_created','DESC')
+                        ->paginate(5);
+                break;
+        }
+        // dd($items);
+        return view('client.pages.share.manage.item-not-acp', compact('items', 'sort'));
     }
 
     //Tim kiem theo bai chua duyệt
@@ -59,7 +81,6 @@ class ShareItemController extends Controller
                 break;
             case 'detail':
                 # code...
-                DB::table('items')->where('item_id',$idItem)->update(['item_status' => 1]);
                 $reason=$this->getReasons();
                 $post=DB::table('items as p')
                 ->join('students as s','s.stu_id','p.stu_id')
@@ -102,7 +123,7 @@ class ShareItemController extends Controller
     //Tìm kiếm
     public function findPost(Request $request)
     {
-       
+
         $share=Item::join('types as t','t.type_id','items.type_id')
         ->where('item_status',1)
         ->where('item_name','LIKE','%'.$request->post_content.'%')
